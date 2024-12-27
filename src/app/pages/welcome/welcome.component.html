@@ -1,1 +1,110 @@
-<h1>sto funzionando</h1>
+<section>
+  <div class="img-container">
+    <img
+      src="https://thumbs.dreamstime.com/b/illustrazione-di-vettore-65138894.jpg"
+      alt="user-img"
+    />
+  </div>
+
+  <form>
+    <mat-form-field appearance="fill" class="w-100 mb-3">
+      <mat-label>Username</mat-label>
+      <input
+        matInput
+        type="text"
+        id="username"
+        name="username"
+        [(ngModel)]="form.username"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100 mb-3">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        type="email"
+        id="email"
+        name="email"
+        [(ngModel)]="form.email"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-100 mb-3">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        type="password"
+        id="password"
+        name="password"
+        [(ngModel)]="form.password"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="fill"
+      class="w-100 mb-3"
+      *ngIf="form.ruolo === 'mentor'"
+    >
+      <mat-label>Materie e Livelli</mat-label>
+      <div *ngFor="let materia of arr">
+        <mat-form-field>
+          <mat-label>Materia</mat-label>
+          <input matInput [(ngModel)]="materia.nome" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Livello Massimo</mat-label>
+          <mat-select [(ngModel)]="materia.livello">
+            <mat-option value="base">Base</mat-option>
+            <mat-option value="intermedio">Intermedio</mat-option>
+            <mat-option value="avanzato">Avanzato</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="fill"
+      class="w-100 mb-3"
+      *ngIf="form.ruolo === 'mentor'"
+    >
+      <mat-label>Fascia Oraria Preferita</mat-label>
+      <input
+        matInput
+        type="time"
+        [(ngModel)]="form.fasciaOraria!.start"
+        placeholder="Inizio"
+      />
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="fill"
+      class="w-100 mb-3"
+      *ngIf="form.ruolo === 'mentor'"
+    >
+      <mat-label>Fascia Oraria Preferita</mat-label>
+      <input
+        matInput
+        type="time"
+        [(ngModel)]="form.fasciaOraria!.end"
+        placeholder="Fine"
+      />
+    </mat-form-field>
+
+    <div class="log-in-link">
+      <p>sei già registrato ?</p>
+      <a routerLink="/log-in">log-in</a>
+    </div>
+
+    <button mat-raised-button color="primary" (click)="signup()" class="w-100">
+      Sign Up
+    </button>
+  </form>
+  <div class="container">
+    <div class="example-button-row">
+      <button mat-flat-button>Studente</button>
+    </div>
+  </div>
+</section>

@@ -5,16 +5,29 @@ import { WelcomeRoutingModule } from './welcome-routing.module';
 import { WelcomeComponent } from './welcome.component';
 //angular material
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AuthService } from '../../services/auth-service';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
-  declarations: [
-    WelcomeComponent
-  ],
+  declarations: [WelcomeComponent],
   imports: [
     CommonModule,
     WelcomeRoutingModule,
     MatSlideToggleModule,
-  ]
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule,
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
+  ],
+  providers: [AuthService],
 })
-export class WelcomeModule { }
+export class WelcomeModule {}
