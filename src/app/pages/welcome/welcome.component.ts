@@ -12,16 +12,20 @@ import { iMateria } from '../../interfaces/i-materia';
   styleUrl: './welcome.component.scss',
 })
 export class WelcomeComponent {
-  arr: iMateria[] = [
-    {
-      nome: 'matematica',
-      livello: 'avanzato',
-    },
-    {
-      nome: 'italiano',
-      livello: 'avanzato',
-    },
+  materieDisponibili: iMateria[] = [
+    { nome: 'Matematica', livello: 'base' },
+    { nome: 'Matematica', livello: 'intermedio' },
+    { nome: 'Matematica', livello: 'avanzato' },
+    { nome: 'Inglese', livello: 'base' },
+    { nome: 'Inglese', livello: 'intermedio' },
+    { nome: 'Inglese', livello: 'avanzato' },
+    { nome: 'Scienze', livello: 'base' },
+    { nome: 'Scienze', livello: 'intermedio' },
+    { nome: 'Scienze', livello: 'avanzato' },
   ];
+
+  selectedMateria: iMateria | null = null;
+
   fasciaoraria: iFasciaOraria = {
     start: '10pm',
     end: '14pm',
@@ -42,5 +46,24 @@ export class WelcomeComponent {
     this.authSer.register(this.form).subscribe((res: iAccessData) => {
       this.router.navigate(['/log-in']);
     });
+  }
+
+  addMateria(materia: iMateria) {
+    if (!this.form.materie) {
+      this.form.materie = [];
+    }
+    if (
+      !this.form.materie.find(
+        (m) => m.nome === materia.nome && m.livello === materia.livello
+      )
+    ) {
+      this.form.materie.push(materia);
+    }
+  }
+
+  removeMateria(index: number) {
+    if (this.form.materie) {
+      this.form.materie.splice(index, 1);
+    }
   }
 }

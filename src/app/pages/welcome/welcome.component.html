@@ -48,21 +48,18 @@
       class="w-100 mb-3"
       *ngIf="form.ruolo === 'mentor'"
     >
-      <mat-label>Materie e Livelli</mat-label>
-      <div *ngFor="let materia of arr">
-        <mat-form-field>
-          <mat-label>Materia</mat-label>
-          <input matInput [(ngModel)]="materia.nome" />
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Livello Massimo</mat-label>
-          <mat-select [(ngModel)]="materia.livello">
-            <mat-option value="base">Base</mat-option>
-            <mat-option value="intermedio">Intermedio</mat-option>
-            <mat-option value="avanzato">Avanzato</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
+      <mat-label>Seleziona Materie e Livelli</mat-label>
+      <mat-select
+        [(ngModel)]="selectedMateria"
+        (selectionChange)="addMateria($event.value)"
+      >
+        <mat-option
+          *ngFor="let materia of materieDisponibili"
+          [value]="materia"
+        >
+          {{ materia.nome }} - Livello: {{ materia.livello }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field
@@ -102,9 +99,34 @@
       Sign Up
     </button>
   </form>
+
   <div class="container">
     <div class="example-button-row">
       <button mat-flat-button>Studente</button>
     </div>
+  </div>
+
+  <div class="selected-materie">
+    <h3>Materie Selezionate</h3>
+    <table class="materie-table">
+      <thead>
+        <tr>
+          <th>Materia</th>
+          <th>Livello</th>
+          <th>Azioni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let materia of form.materie; let i = index">
+          <td>{{ materia.nome }}</td>
+          <td>{{ materia.livello }}</td>
+          <td>
+            <button mat-icon-button color="warn" (click)="removeMateria(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>

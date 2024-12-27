@@ -51,3 +51,50 @@ input {
     color: whitesmoke;
   }
 }
+
+.selected-materie {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  margin-inline: 1rem;
+  margin-block: 3rem;
+}
+
+.selected-materie {
+  margin-top: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.materie-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.materie-table th,
+.materie-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.materie-table th {
+  background-color: #657277;
+  font-weight: bold;
+}
+
+.materie-table tbody tr:hover {
+  background-color: #f4f4f4;
+}
+
+button.mat-icon-button {
+  color: #f44336;
+}
+
+h3 {
+  text-align: center;
+  width: 100%;
+}
