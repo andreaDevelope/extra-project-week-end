@@ -29,6 +29,10 @@ img {
   border-radius: 50%;
 }
 
+.rule {
+  margin-bottom: 1rem;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -84,6 +88,7 @@ input {
 .materie-table th {
   background-color: #657277;
   font-weight: bold;
+  color: #f49236;
 }
 
 .materie-table tbody tr:hover {

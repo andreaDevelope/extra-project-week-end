@@ -33,6 +33,68 @@
         "end": "18:00"
       },
       "id": 2
+    },
+    {
+      "email": "bbb@bbb",
+      "password": "$2a$10$Ebc0YvxbgHtSFS3PPthVTuaFQXuqS3bwaI2snZtdmhTWhBeFpBMPm",
+      "username": "bbb",
+      "ruolo": "mentor",
+      "materie": [
+        {
+          "nome": "Inglese",
+          "livello": "base"
+        },
+        {
+          "nome": "Matematica",
+          "livello": "intermedio"
+        },
+        {
+          "nome": "Matematica",
+          "livello": "base"
+        },
+        {
+          "nome": "Scienze",
+          "livello": "avanzato"
+        }
+      ],
+      "fasciaOraria": {
+        "start": "13:00",
+        "end": "19:00"
+      },
+      "id": 3
+    },
+    {
+      "email": "ccc@ccc",
+      "password": "$2a$10$t6OMVbcmlVIpYkoAktqmxe5.gErA/SqvFovSrhTEOCiZLnoFmSvKq",
+      "username": "ccc",
+      "ruolo": "student",
+      "materie": [],
+      "fasciaOraria": {
+        "start": "",
+        "end": ""
+      },
+      "id": 4
+    },
+    {
+      "email": "ddd@ddd",
+      "password": "$2a$10$fNVIGeievwsRKnkVnPoxeeqitprbbZFJsvTYw6/hElql24vE/F0c.",
+      "username": "ddd",
+      "ruolo": "mentor",
+      "materie": [
+        {
+          "nome": "Inglese",
+          "livello": "base"
+        },
+        {
+          "nome": "Inglese",
+          "livello": "avanzato"
+        }
+      ],
+      "fasciaOraria": {
+        "start": "12:00",
+        "end": "20:00"
+      },
+      "id": 5
     }
   ]
 }

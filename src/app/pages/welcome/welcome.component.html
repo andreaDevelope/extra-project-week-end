@@ -7,13 +7,12 @@
   </div>
 
   <mat-button-toggle-group
-    [(ngModel)]="selectedRole"
-    (change)="switchRole($event)"
+    [formControl]="ruoloControl"
     exclusive
     aria-label="Ruolo"
   >
-    <mat-button-toggle value="student">Studente</mat-button-toggle>
-    <mat-button-toggle value="mentor">Mentor</mat-button-toggle>
+    <mat-button-toggle value="student" class="rule">Studente</mat-button-toggle>
+    <mat-button-toggle value="mentor" class="rule">Mentor</mat-button-toggle>
   </mat-button-toggle-group>
 
   <form [formGroup]="signupForm" (ngSubmit)="signup()">
@@ -46,7 +45,7 @@
     </mat-form-field>
 
     <div
-      *ngIf="signupForm.contains('fasciaOraria')"
+      *ngIf="signupForm.get('ruolo')?.value === 'mentor'"
       formGroupName="fasciaOraria"
     >
       <mat-form-field appearance="fill" class="w-100 mb-3">
@@ -58,7 +57,11 @@
           L'orario di inizio è obbligatorio.
         </mat-error>
       </mat-form-field>
-
+    </div>
+    <div
+      *ngIf="signupForm.get('ruolo')?.value === 'mentor'"
+      formGroupName="fasciaOraria"
+    >
       <mat-form-field appearance="fill" class="w-100 mb-3">
         <mat-label>Fascia Oraria Fine</mat-label>
         <input matInput formControlName="end" type="time" />

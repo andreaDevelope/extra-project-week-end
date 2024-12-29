@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  FormControl,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
 import { iAccessData } from '../../interfaces/i-access-data';
 import { iMateria } from '../../interfaces/i-materia';
-import { iFasciaOraria } from '../../interfaces/i-fascia-oraria';
-import { MatButtonToggleChange } from '@angular/material/button-toggle';
 
 @Component({
   selector: 'app-welcome',
@@ -14,7 +18,6 @@ import { MatButtonToggleChange } from '@angular/material/button-toggle';
 })
 export class WelcomeComponent {
   signupForm!: FormGroup;
-  selectedRole = 'student'; // Ruolo predefinito
   materieDisponibili: iMateria[] = [
     { nome: 'Matematica', livello: 'base' },
     { nome: 'Matematica', livello: 'intermedio' },
@@ -48,20 +51,35 @@ export class WelcomeComponent {
           ),
         ],
       ],
-      ruolo: [this.selectedRole],
+      ruolo: ['student', Validators.required],
       materie: this.fb.array([]),
       fasciaOraria: this.fb.group({
-        start: ['', Validators.required],
-        end: ['', Validators.required],
+        start: [''],
+        end: [''],
       }),
     });
 
-    this.updateFormControls();
+    // Gestione dinamica dei validatori per fasciaOraria
+    this.signupForm.get('ruolo')?.valueChanges.subscribe((role) => {
+      const fasciaOrariaGroup = this.signupForm.get('fasciaOraria');
+      if (role === 'mentor') {
+        fasciaOrariaGroup?.get('start')?.setValidators(Validators.required);
+        fasciaOrariaGroup?.get('end')?.setValidators(Validators.required);
+      } else {
+        fasciaOrariaGroup?.get('start')?.clearValidators();
+        fasciaOrariaGroup?.get('end')?.clearValidators();
+      }
+      fasciaOrariaGroup?.get('start')?.updateValueAndValidity();
+      fasciaOrariaGroup?.get('end')?.updateValueAndValidity();
+    });
   }
 
-  // Determina se il ruolo è Mentor
+  get ruoloControl(): FormControl {
+    return this.signupForm.get('ruolo') as FormControl;
+  }
+
   get isMentor(): boolean {
-    return this.selectedRole === 'mentor';
+    return this.signupForm.get('ruolo')?.value === 'mentor';
   }
 
   get materieFormArray(): FormArray {
@@ -85,63 +103,9 @@ export class WelcomeComponent {
     this.materieFormArray.removeAt(index);
   }
 
-  normalizeFasciaOraria(fasciaOraria: {
-    start: string;
-    end: string;
-  }): iFasciaOraria {
-    const start = this.convertTo24HourFormat(fasciaOraria.start);
-    const end = this.convertTo24HourFormat(fasciaOraria.end);
-    return { start, end };
-  }
-
-  convertTo24HourFormat(time: string): string {
-    const [hours, minutes] = time.split(':');
-    return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`;
-  }
-
-  switchRole(event: MatButtonToggleChange) {
-    this.selectedRole = event.value; // Assicurati che sia 'mentor' o 'student'
-    this.signupForm.patchValue({ ruolo: this.selectedRole });
-    console.log('Ruolo selezionato:', this.selectedRole); // Debugging
-    this.updateFormControls();
-  }
-
-  updateFormControls() {
-    if (this.isMentor) {
-      if (!this.signupForm.contains('fasciaOraria')) {
-        this.signupForm.addControl(
-          'fasciaOraria',
-          this.fb.group({
-            start: ['', Validators.required],
-            end: ['', Validators.required],
-          })
-        );
-      }
-      if (!this.signupForm.contains('materie')) {
-        this.signupForm.addControl('materie', this.fb.array([]));
-      }
-    } else {
-      if (this.signupForm.contains('fasciaOraria')) {
-        this.signupForm.removeControl('fasciaOraria');
-      }
-      if (this.signupForm.contains('materie')) {
-        this.signupForm.removeControl('materie');
-      }
-    }
-
-    // Aggiorna la vista manualmente, se necessario
-    this.signupForm.updateValueAndValidity();
-  }
-
   signup() {
     if (this.signupForm.valid) {
       const formValue = { ...this.signupForm.value };
-      if (this.isMentor) {
-        formValue.fasciaOraria = this.normalizeFasciaOraria(
-          formValue.fasciaOraria
-        );
-      }
-
       this.authService.register(formValue).subscribe(
         (res: iAccessData) => {
           this.router.navigate(['/log-in']);
