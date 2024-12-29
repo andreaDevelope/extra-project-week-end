@@ -59,16 +59,27 @@ export class WelcomeComponent {
       }),
     });
 
-    // Gestione dinamica dei validatori per fasciaOraria
-    this.signupForm.get('ruolo')?.valueChanges.subscribe((role) => {
+    this.signupForm.get('ruolo')?.valueChanges.subscribe((newRole) => {
+      this.signupForm.reset({
+        username: '',
+        email: '',
+        password: '',
+        ruolo: newRole,
+        materie: [],
+        fasciaOraria: {
+          start: '',
+          end: '',
+        },
+      });
       const fasciaOrariaGroup = this.signupForm.get('fasciaOraria');
-      if (role === 'mentor') {
+      if (newRole === 'mentor') {
         fasciaOrariaGroup?.get('start')?.setValidators(Validators.required);
         fasciaOrariaGroup?.get('end')?.setValidators(Validators.required);
       } else {
         fasciaOrariaGroup?.get('start')?.clearValidators();
         fasciaOrariaGroup?.get('end')?.clearValidators();
       }
+
       fasciaOrariaGroup?.get('start')?.updateValueAndValidity();
       fasciaOrariaGroup?.get('end')?.updateValueAndValidity();
     });
