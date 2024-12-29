@@ -95,6 +95,52 @@
         "end": "20:00"
       },
       "id": 5
+    },
+    {
+      "email": "uuu@uuu",
+      "password": "$2a$10$c4xsmpLeHBYhNDaztrVXTuYuRx6yiqZyWXA1SzoNUe3XmUbP34C2.",
+      "username": "uuu",
+      "ruolo": "student",
+      "materie": [],
+      "fasciaOraria": {
+        "start": "",
+        "end": ""
+      },
+      "id": 6
+    },
+    {
+      "email": "uuu@uuuu",
+      "password": "$2a$10$D5pk6g5LQkuDqpThaqGod.mOwBkS2ocghvg/g845KIq.CYsu2aiba",
+      "username": "uuu",
+      "ruolo": "mentor",
+      "materie": [
+        {
+          "nome": "Inglese",
+          "livello": "intermedio"
+        }
+      ],
+      "fasciaOraria": {
+        "start": "10:00",
+        "end": "19:00"
+      },
+      "id": 7
+    },
+    {
+      "email": "zzz@zzz",
+      "password": "$2a$10$tc.ONSZgr/ZKxvpKsAIb5O1mpC/77wGWXD7bDCXdhSYB7Qaoiiv3u",
+      "username": "zzz",
+      "ruolo": "student",
+      "materie": [
+        {
+          "nome": null,
+          "livello": null
+        }
+      ],
+      "fasciaOraria": {
+        "start": "",
+        "end": ""
+      },
+      "id": 8
     }
   ]
 }
