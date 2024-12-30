@@ -17,6 +17,7 @@ import { iMateria } from '../../interfaces/i-materia';
   styleUrls: ['./welcome.component.scss'],
 })
 export class WelcomeComponent {
+  private isResetting: boolean = false;
   signupForm!: FormGroup;
   materieDisponibili: iMateria[] = [
     { nome: 'Matematica', livello: 'base' },
@@ -60,28 +61,42 @@ export class WelcomeComponent {
     });
 
     this.signupForm.get('ruolo')?.valueChanges.subscribe((newRole) => {
-      this.signupForm.reset({
-        username: '',
-        email: '',
-        password: '',
-        ruolo: newRole,
-        materie: [],
-        fasciaOraria: {
-          start: '',
-          end: '',
-        },
-      });
-      const fasciaOrariaGroup = this.signupForm.get('fasciaOraria');
-      if (newRole === 'mentor') {
-        fasciaOrariaGroup?.get('start')?.setValidators(Validators.required);
-        fasciaOrariaGroup?.get('end')?.setValidators(Validators.required);
-      } else {
-        fasciaOrariaGroup?.get('start')?.clearValidators();
-        fasciaOrariaGroup?.get('end')?.clearValidators();
+      if (this.isResetting) {
+        return;
       }
 
-      fasciaOrariaGroup?.get('start')?.updateValueAndValidity();
-      fasciaOrariaGroup?.get('end')?.updateValueAndValidity();
+      this.isResetting = true;
+
+      try {
+        this.signupForm.reset({
+          username: '',
+          email: '',
+          password: '',
+          ruolo: newRole,
+          materie: [],
+          fasciaOraria: {
+            start: '',
+            end: '',
+          },
+        });
+
+        const fasciaOrariaGroup = this.signupForm.get('fasciaOraria');
+
+        if (newRole === 'mentor') {
+          fasciaOrariaGroup?.get('start')?.setValidators(Validators.required);
+          fasciaOrariaGroup?.get('end')?.setValidators(Validators.required);
+        } else {
+          fasciaOrariaGroup?.get('start')?.clearValidators();
+          fasciaOrariaGroup?.get('end')?.clearValidators();
+        }
+
+        fasciaOrariaGroup?.updateValueAndValidity({
+          onlySelf: false,
+          emitEvent: false,
+        });
+      } finally {
+        this.isResetting = false;
+      }
     });
   }
 

@@ -37,7 +37,9 @@ form {
   display: flex;
   flex-direction: column;
   margin-bottom: 3rem;
+  padding-inline: 5px;
 }
+
 input {
   text-align: center;
 }
@@ -78,6 +80,10 @@ input {
   margin-top: 10px;
 }
 
+.mat-button-toggle-group-appearance-standard {
+  border: none;
+}
+
 .materie-table th,
 .materie-table td {
   padding: 10px;
@@ -85,7 +91,9 @@ input {
   border: 1px solid #ddd;
 }
 .psw-legend {
-  padding: 12px;
+  padding-inline: 12px;
+  background-color: #f49236;
+  border-radius: 12px;
 }
 
 .hour {

@@ -5,26 +5,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './main-component/nav/nav.component';
 import { FooterComponent } from './main-component/footer/footer.component';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { Router } from '@angular/router';
-import {MatTabsModule} from '@angular/material/tabs';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavComponent,
-    FooterComponent
-  ],
+  declarations: [AppComponent, NavComponent, FooterComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatTabsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
   ],
-  providers: [
-    provideAnimationsAsync()
-  ],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

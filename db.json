@@ -1,136 +1,36 @@
 {
   "users": [
     {
-      "email": "asas@asdasd.it",
-      "password": "$2a$10$XYjDEVzDjv8iTtHFyxP/G.XASwQC/1/uFkx2yB/DR9g/cgsqtG7eC",
-      "username": "andrea",
+      "email": "mentor1@a",
+      "password": "$2a$10$E82oJjnZ72b.AUaVCwSdS.Nwx69suelVk0OdO2hqXxqx8pfWr4niG",
+      "username": "mentor1",
       "ruolo": "mentor",
       "materie": [
         {
           "nome": "Matematica",
           "livello": "intermedio"
+        },
+        {
+          "nome": "Scienze",
+          "livello": "intermedio"
         }
       ],
       "fasciaOraria": {
-        "start": "10pm",
-        "end": "14pm"
+        "start": "12:00",
+        "end": "19:00"
       },
       "id": 1
     },
     {
-      "email": "aaa@aaa",
-      "password": "$2a$10$7w1asCWxa98q9k/D3tbiZ.OsgVmbltX52VQlBvUmC7B2yQ05W.prS",
-      "username": "aaa",
-      "ruolo": "mentor",
-      "materie": [
-        {
-          "nome": "Matematica",
-          "livello": "intermedio"
-        }
-      ],
-      "fasciaOraria": {
-        "start": "12:00",
-        "end": "18:00"
-      },
-      "id": 2
-    },
-    {
-      "email": "bbb@bbb",
-      "password": "$2a$10$Ebc0YvxbgHtSFS3PPthVTuaFQXuqS3bwaI2snZtdmhTWhBeFpBMPm",
-      "username": "bbb",
-      "ruolo": "mentor",
-      "materie": [
-        {
-          "nome": "Inglese",
-          "livello": "base"
-        },
-        {
-          "nome": "Matematica",
-          "livello": "intermedio"
-        },
-        {
-          "nome": "Matematica",
-          "livello": "base"
-        },
-        {
-          "nome": "Scienze",
-          "livello": "avanzato"
-        }
-      ],
-      "fasciaOraria": {
-        "start": "13:00",
-        "end": "19:00"
-      },
-      "id": 3
-    },
-    {
-      "email": "ccc@ccc",
-      "password": "$2a$10$t6OMVbcmlVIpYkoAktqmxe5.gErA/SqvFovSrhTEOCiZLnoFmSvKq",
-      "username": "ccc",
-      "ruolo": "student",
-      "materie": [],
-      "fasciaOraria": {
-        "start": "",
-        "end": ""
-      },
-      "id": 4
-    },
-    {
-      "email": "ddd@ddd",
-      "password": "$2a$10$fNVIGeievwsRKnkVnPoxeeqitprbbZFJsvTYw6/hElql24vE/F0c.",
-      "username": "ddd",
-      "ruolo": "mentor",
-      "materie": [
-        {
-          "nome": "Inglese",
-          "livello": "base"
-        },
-        {
-          "nome": "Inglese",
-          "livello": "avanzato"
-        }
-      ],
-      "fasciaOraria": {
-        "start": "12:00",
-        "end": "20:00"
-      },
-      "id": 5
-    },
-    {
-      "email": "uuu@uuu",
-      "password": "$2a$10$c4xsmpLeHBYhNDaztrVXTuYuRx6yiqZyWXA1SzoNUe3XmUbP34C2.",
-      "username": "uuu",
-      "ruolo": "student",
-      "materie": [],
-      "fasciaOraria": {
-        "start": "",
-        "end": ""
-      },
-      "id": 6
-    },
-    {
-      "email": "uuu@uuuu",
-      "password": "$2a$10$D5pk6g5LQkuDqpThaqGod.mOwBkS2ocghvg/g845KIq.CYsu2aiba",
-      "username": "uuu",
-      "ruolo": "mentor",
-      "materie": [
-        {
-          "nome": "Inglese",
-          "livello": "intermedio"
-        }
-      ],
-      "fasciaOraria": {
-        "start": "10:00",
-        "end": "19:00"
-      },
-      "id": 7
-    },
-    {
-      "email": "zzz@zzz",
-      "password": "$2a$10$tc.ONSZgr/ZKxvpKsAIb5O1mpC/77wGWXD7bDCXdhSYB7Qaoiiv3u",
-      "username": "zzz",
+      "email": "studente1@a",
+      "password": "$2a$10$8cPTFHf4pdfeDctNs2vCQuNkQOGD/m1nruZNiNYRymWlU.amjkAIO",
+      "username": "studente1",
       "ruolo": "student",
       "materie": [
+        {
+          "nome": null,
+          "livello": null
+        },
         {
           "nome": null,
           "livello": null
@@ -140,7 +40,40 @@
         "start": "",
         "end": ""
       },
-      "id": 8
+      "id": 2
+    },
+    {
+      "email": "studente2@a",
+      "password": "$2a$10$86nQTPMcXxMqjLC7O36zBu66DFd6glC7YtLfw8reYkW0tmUpFiQGK",
+      "username": "studente2",
+      "ruolo": "student",
+      "materie": [],
+      "fasciaOraria": {
+        "start": "",
+        "end": ""
+      },
+      "id": 3
+    },
+    {
+      "email": "mentor2@a",
+      "password": "$2a$10$bhDQBH4yxzQqffTjAC1lR.gKqDBCxz/1oYFsKlhE9x2PqH.VbG.m.",
+      "username": "mentor2",
+      "ruolo": "mentor",
+      "materie": [
+        {
+          "nome": "Matematica",
+          "livello": "avanzato"
+        },
+        {
+          "nome": "Scienze",
+          "livello": "intermedio"
+        }
+      ],
+      "fasciaOraria": {
+        "start": "10:00",
+        "end": "16:00"
+      },
+      "id": 4
     }
   ]
 }
