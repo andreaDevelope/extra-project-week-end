@@ -37,6 +37,7 @@
         matSuffix
         (click)="hidePassword = !hidePassword"
         [attr.aria-label]="'Mostra/Nascondi password'"
+        type="button"
       >
         <mat-icon class="custom-icon">{{
           hidePassword ? "visibility_off" : "visibility"
@@ -67,6 +68,7 @@
         matSuffix
         (click)="hideConfirmPassword = !hideConfirmPassword"
         [attr.aria-label]="'Mostra/Nascondi conferma password'"
+        type="button"
       >
         <mat-icon class="custom-icon">{{
           hideConfirmPassword ? "visibility_off" : "visibility"
@@ -92,31 +94,34 @@
       </mat-error>
     </mat-form-field>
 
-    <div
-      *ngIf="signupForm.get('ruolo')?.value === 'mentor'"
-      formGroupName="fasciaOraria"
-    >
+    <div formGroupName="fasciaOraria" *ngIf="isMentor">
       <mat-form-field appearance="fill" class="w-100 mb-3 hour">
         <mat-label>Fascia Oraria Inizio</mat-label>
         <input matInput formControlName="start" type="time" />
         <mat-error
-          *ngIf="signupForm.get('fasciaOraria.start')?.hasError('required')"
+          *ngIf="signupForm.get('fasciaOraria')?.hasError('invalidTimeRange')"
         >
-          L'orario di inizio è obbligatorio.
+          L'orario di inizio non può essere successivo all'orario di fine.
+        </mat-error>
+        <mat-error
+          *ngIf="signupForm.get('fasciaOraria')?.hasError('timeTooShort')"
+        >
+          La differenza tra inizio e fine deve essere di almeno 1 ora.
         </mat-error>
       </mat-form-field>
-    </div>
-    <div
-      *ngIf="signupForm.get('ruolo')?.value === 'mentor'"
-      formGroupName="fasciaOraria"
-    >
+
       <mat-form-field appearance="fill" class="w-100 mb-3 hour">
         <mat-label>Fascia Oraria Fine</mat-label>
         <input matInput formControlName="end" type="time" />
         <mat-error
-          *ngIf="signupForm.get('fasciaOraria.end')?.hasError('required')"
+          *ngIf="signupForm.get('fasciaOraria')?.hasError('invalidTimeRange')"
         >
-          L'orario di fine è obbligatorio.
+          L'orario di fine non può essere precedente all'orario di inizio.
+        </mat-error>
+        <mat-error
+          *ngIf="signupForm.get('fasciaOraria')?.hasError('timeTooShort')"
+        >
+          La differenza tra inizio e fine deve essere di almeno 1 ora.
         </mat-error>
       </mat-form-field>
     </div>
