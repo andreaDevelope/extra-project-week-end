@@ -11,7 +11,8 @@ import { AuthService } from '../../services/auth-service';
 import { iAccessData } from '../../interfaces/i-access-data';
 import { iMateria } from '../../interfaces/i-materia';
 import { CustomValidators } from '../../custom-validators/custom-validator';
-import { FasciaOrariaValidator } from '../../custom-validators/custom-validate-fascia-oraria'; // Importa il validatore personalizzato
+import { CustomValidatorsFasciaOraria } from '../../custom-validators/custom-validate-fascia-oraria';
+import { CustomValidatorsMaterie } from '../../custom-validators/custom-validators-materie';
 
 @Component({
   selector: 'app-welcome',
@@ -23,7 +24,6 @@ export class WelcomeComponent {
   signupForm!: FormGroup;
   hidePassword = true;
   hideConfirmPassword = true;
-
   materieDisponibili: iMateria[] = [
     { nome: 'Matematica', livello: 'base' },
     { nome: 'Matematica', livello: 'intermedio' },
@@ -60,19 +60,18 @@ export class WelcomeComponent {
         ],
         confirmPassword: ['', Validators.required],
         ruolo: ['student', Validators.required],
-        materie: this.fb.array([]), // Materie per i mentor
+        materie: this.fb.array([], CustomValidatorsMaterie.validateMaterie()),
         fasciaOraria: this.fb.group(
           {
             start: [''],
             end: [''],
           },
-          { validators: FasciaOrariaValidator.validFasciaOraria() } // Validatore per fascia oraria
+          { validators: CustomValidatorsFasciaOraria.validateFasciaOraria() }
         ),
       },
-      { validators: CustomValidators.passwordsMatch() } // Aggiunto il validatore per il match delle password
+      { validators: CustomValidators.passwordsMatch() }
     );
 
-    // Reagisce al cambiamento del ruolo (student o mentor)
     this.signupForm.get('ruolo')?.valueChanges.subscribe((newRole) => {
       if (this.isResetting) {
         return;
@@ -81,7 +80,6 @@ export class WelcomeComponent {
       this.isResetting = true;
 
       try {
-        // Reset del form, ma mantenendo username ed email
         this.signupForm.reset({
           username: this.signupForm.get('username')?.value,
           email: this.signupForm.get('email')?.value,
@@ -96,25 +94,32 @@ export class WelcomeComponent {
         });
 
         const fasciaOrariaGroup = this.signupForm.get('fasciaOraria');
+        const materieArray = this.signupForm.get('materie') as FormArray;
 
         if (newRole === 'mentor') {
-          // Se è mentor, rendi obbligatorie le fasce orarie
           fasciaOrariaGroup?.get('start')?.setValidators(Validators.required);
           fasciaOrariaGroup?.get('end')?.setValidators(Validators.required);
-          this.materieFormArray.setValidators(Validators.required); // Materie obbligatorie per mentor
+          materieArray.setValidators(CustomValidatorsMaterie.validateMaterie());
         } else {
-          // Se è studente, rimuovi i validator per fascia oraria e materie
           fasciaOrariaGroup?.get('start')?.clearValidators();
           fasciaOrariaGroup?.get('end')?.clearValidators();
-          this.materieFormArray.clearValidators();
+          materieArray.clearValidators();
         }
 
-        // Aggiorna le validazioni per materie e fasce orarie
         fasciaOrariaGroup?.get('start')?.updateValueAndValidity();
         fasciaOrariaGroup?.get('end')?.updateValueAndValidity();
-        this.materieFormArray.updateValueAndValidity();
+        materieArray.updateValueAndValidity();
       } finally {
         this.isResetting = false;
+      }
+    });
+
+    this.materieFormArray.valueChanges.subscribe(() => {
+      if (!this.isResetting) {
+        this.materieFormArray.updateValueAndValidity({
+          onlySelf: true,
+          emitEvent: false,
+        });
       }
     });
   }

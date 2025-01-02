@@ -73,6 +73,35 @@
         "end": "12:02"
       },
       "id": 5
+    },
+    {
+      "email": "aa@a",
+      "password": "$2a$10$QC9TFPvw8h1Ip79ZFxUeae9mOjRv4O3n/Bo41xORKVDtJXdW9PtwC",
+      "username": "a",
+      "ruolo": "student",
+      "materie": [],
+      "fasciaOraria": {
+        "start": "",
+        "end": ""
+      },
+      "id": 6
+    },
+    {
+      "email": "mentor100@a",
+      "password": "$2a$10$SpKMK8OL55EjiLvt.mC9/OLznKRi7Tl/KJsJFfxNsWPeukBe7bqEG",
+      "username": "mentor10",
+      "ruolo": "mentor",
+      "materie": [
+        {
+          "nome": "Inglese",
+          "livello": "base"
+        }
+      ],
+      "fasciaOraria": {
+        "start": "15:00",
+        "end": "16:00"
+      },
+      "id": 7
     }
   ]
 }

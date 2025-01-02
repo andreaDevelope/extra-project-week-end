@@ -99,14 +99,9 @@
         <mat-label>Fascia Oraria Inizio</mat-label>
         <input matInput formControlName="start" type="time" />
         <mat-error
-          *ngIf="signupForm.get('fasciaOraria')?.hasError('invalidTimeRange')"
+          *ngIf="signupForm.get('fasciaOraria.start')?.hasError('required')"
         >
-          L'orario di inizio non può essere successivo all'orario di fine.
-        </mat-error>
-        <mat-error
-          *ngIf="signupForm.get('fasciaOraria')?.hasError('timeTooShort')"
-        >
-          La differenza tra inizio e fine deve essere di almeno 1 ora.
+          L'orario di inizio è obbligatorio per i mentori.
         </mat-error>
       </mat-form-field>
 
@@ -114,16 +109,17 @@
         <mat-label>Fascia Oraria Fine</mat-label>
         <input matInput formControlName="end" type="time" />
         <mat-error
-          *ngIf="signupForm.get('fasciaOraria')?.hasError('invalidTimeRange')"
+          *ngIf="signupForm.get('fasciaOraria.end')?.hasError('required')"
         >
-          L'orario di fine non può essere precedente all'orario di inizio.
-        </mat-error>
-        <mat-error
-          *ngIf="signupForm.get('fasciaOraria')?.hasError('timeTooShort')"
-        >
-          La differenza tra inizio e fine deve essere di almeno 1 ora.
+          L'orario di fine è obbligatorio per i mentori.
         </mat-error>
       </mat-form-field>
+
+      <mat-error
+        *ngIf="signupForm.get('fasciaOraria')?.hasError('timeTooShort')"
+      >
+        La differenza tra l'orario di inizio e fine deve essere di almeno 1 ora.
+      </mat-error>
     </div>
 
     <mat-form-field appearance="fill" class="w-100 mb-3" *ngIf="isMentor">
@@ -136,6 +132,9 @@
           {{ materia.nome }} - Livello: {{ materia.livello }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="materieFormArray.hasError('requiredMaterie')">
+        Devi selezionare almeno una materia per i mentori.
+      </mat-error>
     </mat-form-field>
 
     <div *ngIf="isMentor" class="selected-materie">
