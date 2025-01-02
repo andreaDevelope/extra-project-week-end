@@ -2,7 +2,7 @@
   "users": [
     {
       "email": "studente1@a",
-      "password": "$2a$10$yfaMb/vlEs/b9/JBua/ECuaRqWKTA8IPVkjeqHQRTJGE72GxpQiTG",
+      "password": "$2a$10$8WVw0BQZ0oD7iV5lY3klOO93EO1/Z211MT7jo0X2P5e5Qseut1oAK",
       "username": "studente1",
       "ruolo": "student",
       "materie": [],
@@ -11,6 +11,68 @@
         "end": ""
       },
       "id": 1
+    },
+    {
+      "email": "mentor1@a",
+      "password": "$2a$10$PGluYcAUiyC.pSjRLXpFW.xo1rIlapGG5e4tLdulXojY4i/4bkqt.",
+      "username": "mentor1",
+      "ruolo": "mentor",
+      "materie": [
+        {
+          "nome": "Inglese",
+          "livello": "base"
+        },
+        {
+          "nome": "Scienze",
+          "livello": "avanzato"
+        }
+      ],
+      "fasciaOraria": {
+        "start": "01:01",
+        "end": "01:01"
+      },
+      "id": 2
+    },
+    {
+      "email": "studente2@a",
+      "password": "$2a$10$LWeTvGiKmjenbKmIM04oXuLPs1B.m9DBRAWZjStqIoTL4H5/0kl1W",
+      "username": "studente2",
+      "ruolo": "student",
+      "materie": [],
+      "fasciaOraria": {
+        "start": "",
+        "end": ""
+      },
+      "id": 3
+    },
+    {
+      "email": "studente10@a",
+      "password": "$2a$10$tAIbJ9DcitWno91JpNMq1.NiF9kp20WdZXU9llqxzaCGqsfHn1ea6",
+      "username": "studente10",
+      "ruolo": "student",
+      "materie": [],
+      "fasciaOraria": {
+        "start": "",
+        "end": ""
+      },
+      "id": 4
+    },
+    {
+      "email": "mentor10@a",
+      "password": "$2a$10$X4AEAkEPOyOvDx8pEt6aJOEuY4qXkL2idAMlmQyTAdYrwTSXbXGVG",
+      "username": "mentor10",
+      "ruolo": "mentor",
+      "materie": [
+        {
+          "nome": "Matematica",
+          "livello": "avanzato"
+        }
+      ],
+      "fasciaOraria": {
+        "start": "01:02",
+        "end": "12:02"
+      },
+      "id": 5
     }
   ]
 }

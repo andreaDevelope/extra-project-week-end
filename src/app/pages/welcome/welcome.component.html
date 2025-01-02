@@ -27,10 +27,23 @@
 
     <mat-form-field appearance="fill" class="w-100 mb-3">
       <mat-label>Password</mat-label>
-      <input matInput formControlName="password" type="password" />
-
+      <input
+        matInput
+        formControlName="password"
+        [type]="hidePassword ? 'password' : 'text'"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hidePassword = !hidePassword"
+        [attr.aria-label]="'Mostra/Nascondi password'"
+      >
+        <mat-icon class="custom-icon">{{
+          hidePassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
       <mat-error *ngIf="signupForm.get('password')?.hasError('pattern')">
-        password non vaida
+        password non valida
       </mat-error>
       <mat-error *ngIf="signupForm.get('password')?.hasError('required')">
         La password è obbligatoria.
@@ -44,9 +57,38 @@
 
     <mat-form-field appearance="fill" class="w-100 mb-3">
       <mat-label>Conferma Password</mat-label>
-      <input matInput formControlName="confirmPassword" type="password" />
-      <mat-error *ngIf="signupForm.hasError('passwordsMismatch')">
+      <input
+        matInput
+        formControlName="confirmPassword"
+        [type]="hideConfirmPassword ? 'password' : 'text'"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hideConfirmPassword = !hideConfirmPassword"
+        [attr.aria-label]="'Mostra/Nascondi conferma password'"
+      >
+        <mat-icon class="custom-icon">{{
+          hideConfirmPassword ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+
+      <mat-error
+        *ngIf="
+          signupForm.get('confirmPassword')?.dirty &&
+          signupForm.get('confirmPassword')?.hasError('passwordsMismatch')
+        "
+      >
         Le password non corrispondono.
+      </mat-error>
+
+      <mat-error
+        *ngIf="
+          signupForm.get('confirmPassword')?.hasError('required') &&
+          !signupForm.hasError('passwordsMismatch')
+        "
+      >
+        La conferma della password è obbligatoria.
       </mat-error>
     </mat-form-field>
 

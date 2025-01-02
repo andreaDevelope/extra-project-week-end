@@ -20,6 +20,8 @@ import { CustomValidators } from '../../custom-validators/custom-validator';
 export class WelcomeComponent {
   private isResetting: boolean = false;
   signupForm!: FormGroup;
+  hidePassword = true;
+  hideConfirmPassword = true;
   materieDisponibili: iMateria[] = [
     { nome: 'Matematica', livello: 'base' },
     { nome: 'Matematica', livello: 'intermedio' },
@@ -41,28 +43,6 @@ export class WelcomeComponent {
   }
 
   initForm() {
-    this.signupForm = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(
-            '^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[0-9]).{6,}$'
-          ),
-        ],
-      ],
-      confirmPassword: ['', Validators.required],
-      validators: CustomValidators.passwordsMatch(),
-      ruolo: ['student', Validators.required],
-      materie: this.fb.array([]),
-      fasciaOraria: this.fb.group({
-        start: [''],
-        end: [''],
-      }),
-    });
-
     this.signupForm = this.fb.group(
       {
         username: ['', Validators.required],
@@ -86,6 +66,52 @@ export class WelcomeComponent {
       },
       { validators: CustomValidators.passwordsMatch() }
     );
+
+    this.signupForm.get('ruolo')?.valueChanges.subscribe((newRole) => {
+      if (this.isResetting) {
+        return;
+      }
+
+      this.isResetting = true;
+
+      try {
+        this.signupForm.reset({
+          username: this.signupForm.get('username')?.value,
+          email: this.signupForm.get('email')?.value,
+          password: '',
+          confirmPassword: '',
+          ruolo: newRole,
+          materie: [],
+          fasciaOraria: {
+            start: '',
+            end: '',
+          },
+        });
+
+        const fasciaOrariaGroup = this.signupForm.get('fasciaOraria');
+
+        if (newRole === 'mentor') {
+          fasciaOrariaGroup?.get('start')?.setValidators(Validators.required);
+          fasciaOrariaGroup?.get('end')?.setValidators(Validators.required);
+        } else {
+          fasciaOrariaGroup?.get('start')?.clearValidators();
+          fasciaOrariaGroup?.get('end')?.clearValidators();
+        }
+
+        fasciaOrariaGroup?.get('start')?.updateValueAndValidity();
+        fasciaOrariaGroup?.get('end')?.updateValueAndValidity();
+
+        if (newRole === 'mentor') {
+          this.materieFormArray.setValidators(Validators.required);
+        } else {
+          this.materieFormArray.clearValidators();
+        }
+
+        this.materieFormArray.updateValueAndValidity();
+      } finally {
+        this.isResetting = false;
+      }
+    });
   }
 
   get ruoloControl(): FormControl {
@@ -123,7 +149,9 @@ export class WelcomeComponent {
 
     if (password !== confirmPassword) {
       console.error('Le password non corrispondono');
-      this.signupForm.setErrors({ passwordsMismatch: true });
+      this.signupForm
+        .get('confirmPassword')
+        ?.setErrors({ passwordsMismatch: true });
       return;
     }
 
