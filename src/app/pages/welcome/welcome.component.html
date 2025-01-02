@@ -1,11 +1,4 @@
 <section>
-  <div class="img-container">
-    <img
-      src="https://thumbs.dreamstime.com/b/illustrazione-di-vettore-65138894.jpg"
-      alt="user-img"
-    />
-  </div>
-
   <mat-button-toggle-group
     [formControl]="ruoloControl"
     exclusive
@@ -43,10 +36,19 @@
         La password è obbligatoria.
       </mat-error>
     </mat-form-field>
+
     <p class="psw-legend">
       almeno 6 caratteri, una lettera maiuscola, un simbolo speciale e un
       numero.
     </p>
+
+    <mat-form-field appearance="fill" class="w-100 mb-3">
+      <mat-label>Conferma Password</mat-label>
+      <input matInput formControlName="confirmPassword" type="password" />
+      <mat-error *ngIf="signupForm.hasError('passwordsMismatch')">
+        Le password non corrispondono.
+      </mat-error>
+    </mat-form-field>
 
     <div
       *ngIf="signupForm.get('ruolo')?.value === 'mentor'"

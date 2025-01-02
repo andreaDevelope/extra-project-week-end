@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth-service';
 import { iAccessData } from '../../interfaces/i-access-data';
 import { iMateria } from '../../interfaces/i-materia';
+import { CustomValidators } from '../../custom-validators/custom-validator';
 
 @Component({
   selector: 'app-welcome',
@@ -52,6 +53,8 @@ export class WelcomeComponent {
           ),
         ],
       ],
+      confirmPassword: ['', Validators.required],
+      validators: CustomValidators.passwordsMatch(),
       ruolo: ['student', Validators.required],
       materie: this.fb.array([]),
       fasciaOraria: this.fb.group({
@@ -60,44 +63,29 @@ export class WelcomeComponent {
       }),
     });
 
-    this.signupForm.get('ruolo')?.valueChanges.subscribe((newRole) => {
-      if (this.isResetting) {
-        return;
-      }
-
-      this.isResetting = true;
-
-      try {
-        this.signupForm.reset({
-          username: '',
-          email: '',
-          password: '',
-          ruolo: newRole,
-          materie: [],
-          fasciaOraria: {
-            start: '',
-            end: '',
-          },
-        });
-
-        const fasciaOrariaGroup = this.signupForm.get('fasciaOraria');
-
-        if (newRole === 'mentor') {
-          fasciaOrariaGroup?.get('start')?.setValidators(Validators.required);
-          fasciaOrariaGroup?.get('end')?.setValidators(Validators.required);
-        } else {
-          fasciaOrariaGroup?.get('start')?.clearValidators();
-          fasciaOrariaGroup?.get('end')?.clearValidators();
-        }
-
-        fasciaOrariaGroup?.updateValueAndValidity({
-          onlySelf: false,
-          emitEvent: false,
-        });
-      } finally {
-        this.isResetting = false;
-      }
-    });
+    this.signupForm = this.fb.group(
+      {
+        username: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: [
+          '',
+          [
+            Validators.required,
+            Validators.pattern(
+              '^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[0-9]).{6,}$'
+            ),
+          ],
+        ],
+        confirmPassword: ['', Validators.required],
+        ruolo: ['student', Validators.required],
+        materie: this.fb.array([]),
+        fasciaOraria: this.fb.group({
+          start: [''],
+          end: [''],
+        }),
+      },
+      { validators: CustomValidators.passwordsMatch() }
+    );
   }
 
   get ruoloControl(): FormControl {
@@ -130,8 +118,18 @@ export class WelcomeComponent {
   }
 
   signup() {
+    const password = this.signupForm.get('password')?.value;
+    const confirmPassword = this.signupForm.get('confirmPassword')?.value;
+
+    if (password !== confirmPassword) {
+      console.error('Le password non corrispondono');
+      this.signupForm.setErrors({ passwordsMismatch: true });
+      return;
+    }
+
     if (this.signupForm.valid) {
       const formValue = { ...this.signupForm.value };
+      delete formValue.confirmPassword;
       this.authService.register(formValue).subscribe(
         (res: iAccessData) => {
           this.router.navigate(['/log-in']);

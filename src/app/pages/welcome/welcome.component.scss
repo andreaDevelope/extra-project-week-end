@@ -9,26 +9,6 @@ section {
   padding-block: 2rem;
 }
 
-.img-container {
-  border-radius: 50%;
-  height: 180px;
-  width: 180px;
-  border: 4px solid #fff;
-  margin-inline: auto;
-  margin-bottom: 3rem;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.img-container:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3), 0 6px 15px rgba(0, 0, 0, 0.15);
-}
-
-img {
-  width: 100%;
-  border-radius: 50%;
-}
-
 .rule {
   margin-bottom: 1rem;
 }
