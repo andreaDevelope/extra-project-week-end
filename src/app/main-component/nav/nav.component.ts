@@ -10,7 +10,7 @@ export class NavComponent {
   constructor(private router: Router) {}
 
   navigate(index: number): void {
-    const routes = ['/', '/login', '/home']; // Rotte associate ai tab
+    const routes = ['/', '/login', '/home'];
     this.router.navigate([routes[index]]);
   }
 }

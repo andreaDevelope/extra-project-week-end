@@ -6,7 +6,22 @@ section {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-block: 2rem;
+  padding-block: 3rem;
+}
+
+.welcome-header {
+  text-align: center;
+  margin-bottom: 24px;
+
+  .title {
+    color: #3f51b5;
+    font-weight: 600;
+  }
+
+  .description {
+    color: #b1c21de3;
+    margin-top: 8px;
+  }
 }
 
 .custom-icon {
